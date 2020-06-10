@@ -1,4 +1,6 @@
 -   to initialize all the modules type
-    npm i install
+    *npm i install*
 -   to run type
-    npm run dev
+    *npm run dev*
+
+
