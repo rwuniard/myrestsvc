@@ -1,0 +1,31 @@
+{
+    "name": "myrestsvc",
+    "version": "1.0.0",
+    "description": "Rest service",
+    "main": "index.js",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "dev": "env-cmd -f ./config/dev.env nodemon src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rwuniard/myrestsvc.git"
+    },
+    "keywords": [
+        "rest",
+        "service"
+    ],
+    "author": "Ronson Wuniardy",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rwuniard/myrestsvc/issues"
+    },
+    "homepage": "https://github.com/rwuniard/myrestsvc#readme",
+    "dependencies": {
+        "env-cmd": "^10.1.0",
+        "express": "^4.17.1",
+        "nodemon": "^2.0.4"
+    }
+}
