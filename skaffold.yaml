@@ -1,0 +1,17 @@
+apiVersion: skaffold/v1beta2
+kind: Config
+build:
+  local: # this means don't push to your git repo
+    push: false # when the setting is set to false.
+  artifacts:
+    - image: rwuniard/myrestserver
+      context: .
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        "**/*.js": . # This means detect any javascript changes and copy it to target in kubernetes
+deploy:
+  kubectl:
+    manifests:
+      - k8s/myrest-server-deployment.yaml
+      - k8s/myrest-server-node-port.yaml
