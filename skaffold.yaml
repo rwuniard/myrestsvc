@@ -4,7 +4,7 @@ build:
   local: # this means don't push to your git repo
     push: false # when the setting is set to false.
   artifacts:
-    - image: rwuniard/myrestserver
+    - image: rwuniard/myrestsvc
       context: .
       docker:
         dockerfile: Dockerfile.dev
