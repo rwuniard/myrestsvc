@@ -1,4 +1,4 @@
-docker build -t rwuniard/myrestsvc:latest -t rwuniard/multi-client:$SHA -f ./Dockerfile ./
+docker build -t rwuniard/myrestsvc:latest -t rwuniard/myrestsvc:$SHA -f ./Dockerfile ./
 
 # We have login in .travis.yaml, so we can just push it to dockerhub
 docker push rwuniard/myrestsvc:latest
