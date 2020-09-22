@@ -1,3 +1,4 @@
+language: node_js #This needs to be specified, otherwise you are getting error rake aborted -> The command rake exited with 1
 sudo: required
 services:
   - docker
