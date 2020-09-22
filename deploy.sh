@@ -6,4 +6,4 @@ docker push rwuniard/myrestsvc:$SHA
 
 # the kubectl has been set in .travis.yaml 
 kubectl apply -f k8s
-kubectl set image deployments/myrest-server-deployment myrestserver=rwuniard/myrestsvc:$SHA
+kubectl set image deployment/myrest-server-deployment myrestserver=rwuniard/myrestsvc:$SHA
