@@ -1,0 +1,16 @@
+# Use this load balancer servie
+# You just need to deploy the myrest-server-deployment.yaml and 
+# myrest-server-loadbalancer-service.yaml
+# The loadbalancer service replaces the cluster-ip service
+# You don't need the ingress-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myrest-server-loadbalancer-service
+spec:
+  type: LoadBalancer
+  selector:
+    component: web
+  ports:
+    - port: 3000
+      targetPort: 3000

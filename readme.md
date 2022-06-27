@@ -46,3 +46,25 @@
     Then you should get the ip and put that ip in the browser ip:31515/test
 
 
+To deploy to GCP:
+Create GCP cluster
+
+Assuming you have cloud install and kubectl installed in your command line. 
+In GCP, it is already installed.
+
+In GCP console you need to install helm:
+* 		curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+* 		chmod 700 get_helm.sh
+* 		./get_helm.sh
+https://helm.sh/docs/intro/install/
+
+Use this instruction to install nginx-ingress
+Nginx-ingress can be installed using Helm. There is also an instruction to install it using kubectl
+
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+
+https://kubernetes.github.io/ingress-nginx/deploy/
+
+

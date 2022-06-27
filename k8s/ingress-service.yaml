@@ -1,16 +1,19 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-service
   annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/use-regex: "true"
+    kubernetes.io/ingress.class: 'nginx'
+    nginx.ingress.kubernetes.io/use-regex: 'true'
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
     - http:
         paths:
           - path: /?(.*)
+            pathType: Prefix
             backend:
-              serviceName: myrest-server-cluster-ip-service
-              servicePort: 3000
+              service:
+                name: myrest-server-cluster-ip-service
+                port:
+                  number: 3000
