@@ -46,6 +46,7 @@
     Then you should get the ip and put that ip in the browser ip:31515/test
 
 
+
 To deploy to GCP:
 Create GCP cluster
 
@@ -67,4 +68,7 @@ helm upgrade --install ingress-nginx ingress-nginx \
 
 https://kubernetes.github.io/ingress-nginx/deploy/
 
-
+NOTES:
+There is an option to deploy with LoadBalancer service.
+It is stored in k8s/myrest-server-loadbalancer.yaml
+That's just to demonstrate you can use load balancer in GCP.
