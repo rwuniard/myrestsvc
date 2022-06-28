@@ -72,3 +72,71 @@ NOTES:
 There is an option to deploy with LoadBalancer service.
 It is stored in k8s/myrest-server-loadbalancer.yaml
 That's just to demonstrate you can use load balancer in GCP.
+
+
+Installing HTTPS (These steps are shown in Udemy class "Docker and Kubernetes The Complete Guide by Stephen Grider")
+----------------
+We will be using letsencrypt 
+###First you need to install cert manager.
+The certificate manager will do a handshake with letsencrypt to ensure you are the owner of the domain and issuing the certificate based on the info responded in the handshake.
+
+First install the cert-manager in your k8s cluster (in GCP)
+Add the Jetstack Helm repository
+
+*helm repo add jetstack https://charts.jetstack.io*
+
+Update your local Helm chart repository cache:
+
+*helm repo update*
+
+Install the cert-manager Helm chart:
+
+*helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.8.0 \
+  --set installCRDs=true*
+
+The cert-manager documentation on the installation
+
+https://cert-manager.io/docs/installation/helm/#steps
+
+You should be seeing additional pods and svc in your cluster.
+kubectl get pod -n cert-manager
+
+### Setup your domain and configure the DNS
+Buy the domain that you want. You can get it from gcp (domains.google.com)
+
+Configure the DNS to point to the IP specified in the ingress load balancer.
+You can find the ip address by running this command:
+*kubectl get ingress*
+
+Configure the DNS with these settings.
+ronsonw.com	A	1 hour	
+xx.xx.xx.xx(IP Addr)
+www.ronsonw.com	CNAME	1 hour	
+ronsonw.com.
+
+### Create issuer.yaml
+The certificate manager needs issuer.yaml and certificate.yaml to initiate the handshake with letsecnrypt.
+
+### Create certificate.yaml
+Please take a look at the certificate.yaml file.
+
+### Deploy issuer.yaml and certificate.yaml
+deploy it with kubectl command.
+After the deployment is successful, you can check whether the cert-manager has successfully obtained the certificate.
+*kubectl get certificates
+kubectl describe certificates*
+
+Check if it has the secret
+*kubectl get secrets*
+### Modify the ingress-service.yaml
+Please see the ingress-service.yaml with comments in it to explain what the addition changes to the original configuration.
+Deploy it with kubectl apply
+
+Then you should be able to go to 
+yourdomain.com/test
+www.yourdomain.com/test
+It should return a result from the rest service.

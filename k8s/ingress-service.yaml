@@ -6,9 +6,37 @@ metadata:
     kubernetes.io/ingress.class: 'nginx'
     nginx.ingress.kubernetes.io/use-regex: 'true'
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # These two lines are added to make the https certificate installed in the LB
+    # the letsencrypt-prod is specified in the issuer.yaml as the metadata name.
+    cert-manager.io/cluster-issuer: "letsencrypt-prod" 
+    # This is to inform ingress to redirect the ssl
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+
 spec:
+  # The tls section need to be added for the https with cert
+  tls:
+    - hosts:
+        - ronsonw.com
+        - www.ronsonw.com
+      # The secretName is specified in the certificate.yaml
+      secretName: ronsonw-com
   rules:
-    - http:
+    # This host line is added for the https. You don't need this if you don't have a domain with tls
+    - host: ronsonw.com
+      # Removed the - in front of the http. See the history in the github.
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: myrest-server-cluster-ip-service
+                port:
+                  number: 3000
+    # This need to be repeated for the www.ronsonw.com
+    - host: www.ronsonw.com
+      # Removed the - in front of the http. See the history in the github.
+      http:
         paths:
           - path: /?(.*)
             pathType: Prefix

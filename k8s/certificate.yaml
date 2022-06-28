@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+ 
+kind: Certificate
+metadata:
+  name: ronsonw.com
+spec:
+  secretName: ronsonw-com
+  issuerRef:
+    # This is referring to the issuer.yaml in the metadata name.
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  # This is the certificate common name.
+  commonName: ronsonw.com
+  dnsNames:
+    - ronsonw.com
+    - www.ronsonw.com
